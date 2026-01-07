@@ -6,7 +6,7 @@
 /*   By: rrichard <rrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 16:36:40 by rrichard          #+#    #+#             */
-/*   Updated: 2025/12/11 17:35:49 by rrichard         ###   ########.fr       */
+/*   Updated: 2026/01/07 12:42:39 by rrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	print_real( double x )
 {
 	Fraction f(0, 1);
 
+	if (x == 0.0)
+		x = 0.0;
 	if (double_to_fraction(x, f))
 		std::cout << f;
 	else
@@ -24,7 +26,7 @@ static void	print_real( double x )
 
 void	print_complex( double re, double im )
 {
-	const double	eps = 1e-6;
+	const double	eps = 1e-9;
 
 	auto near = [&](double x, double target)
 	{
@@ -86,16 +88,16 @@ void	second_degree( PolyMap& poly )
 			a = i.second;
 	}
 	det = b * b - 4.0 * a * c;
-	if (det == 0)
+	if (ft_abs(det) < 1e-12)
 	{
-		Fraction f(0, 1);
-		double	res = -1.0 * b / (2 * a);
+		Fraction	f(0, 1);
+		double		res = -b / (2 * a);
 		
 		std::cout << "The solution is:" << std::endl;
 		print_real(res);
 		std::cout << std::endl;
 	}
-	else if (det > 0)
+	else if (det > 0.0)
 	{
 		double root1 = 0.0, root2 = 0.0;
 
@@ -109,7 +111,7 @@ void	second_degree( PolyMap& poly )
 		print_real(root2);
 		std::cout << std::endl;
 	}
-	else if (det < 0)
+	else if (det < 0.0)
 	{
 		double	real_root = 0.0, imag_root = 0.0;
 

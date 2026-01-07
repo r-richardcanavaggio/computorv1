@@ -6,7 +6,7 @@
 /*   By: rrichard <rrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 15:04:41 by rrichard          #+#    #+#             */
-/*   Updated: 2025/12/11 18:02:19 by rrichard         ###   ########.fr       */
+/*   Updated: 2026/01/07 11:16:58 by rrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ static void			parse_term( const std::string& term, int side_sign, PolyMap& poly 
 
 		if (exp_str.empty())
 			throw std::runtime_error("invalid term: missing exponent after '^'");
+
 		power = std::stoi(exp_str);
 	}
 	double	coef  = sign * side_sign * magnitude;
@@ -105,19 +106,22 @@ static void			parse_term( const std::string& term, int side_sign, PolyMap& poly 
 	poly[power] += coef;
 }
 
-static void	parse_side( const std::string& side, int side_sign, PolyMap& poly )
+static void		parse_side( const std::string& side, int side_sign, PolyMap& poly )
 {
-	std::string s = side;
+	std::string	s = side;
+	size_t		i = 0;
+
 	if (!s.empty() && s[0] != '+' && s[0] != '-')
 		s.insert(s.begin(), '+');
-	
-	size_t	i = 0;
+
 	while (i < s.size())
 	{
 		size_t	j = i + 1;
+
 		while (j < s.size() && s[j] != '+' && s[j] != '-')
 			j++;
 		std::string	term_str = s.substr(i, j - i);
+
 		parse_term(term_str, side_sign, poly);
 		i = j;
 	}
@@ -138,6 +142,13 @@ static PolyMap	parse_formula( const std::string& formula )
 
 	parse_side(lhs, +1, poly);
 	parse_side(rhs, -1, poly);
+	for (auto it = poly.begin(); it != poly.end(); )
+	{
+		if (it->second == 0.0)
+			it = poly.erase(it);
+		else
+			it++;
+	}
 	return (poly);
 }
 
