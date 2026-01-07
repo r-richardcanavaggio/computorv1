@@ -1,16 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sqrt.cpp                                        :+:      :+:    :+:   */
+/*   math.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rrichard <rrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/04 17:09:38 by rrichard          #+#    #+#             */
-/*   Updated: 2026/01/07 12:17:58 by rrichard         ###   ########.fr       */
+/*   Created: 2026/01/07 15:31:20 by rrichard          #+#    #+#             */
+/*   Updated: 2026/01/07 15:33:35 by rrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "computor.hpp"
+#include <stdexcept>
+
+int	round_to_int( double x )
+{
+	if (x >= 0.0)
+		return (static_cast<int>(x + 0.5));
+	return (static_cast<int>(x - 0.5));
+}
 
 double	ft_abs( double x )
 {
@@ -22,6 +29,13 @@ double	ft_round( double x )
 	if (x >= 0.0)
 		return (static_cast<long long>(x + 0.5));
 	return (static_cast<long long>(x - 0.5));
+}
+
+int	ft_gcd( int a, int b )
+{
+	if (b == 0)
+		return (a);
+	return (ft_gcd(b, a % b));
 }
 
 double	ft_sqrt( double x )

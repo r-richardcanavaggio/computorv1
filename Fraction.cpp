@@ -6,7 +6,7 @@
 /*   By: rrichard <rrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 16:59:27 by rrichard          #+#    #+#             */
-/*   Updated: 2025/12/11 17:44:03 by rrichard         ###   ########.fr       */
+/*   Updated: 2026/01/07 15:33:19 by rrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,6 @@ std::ostream&	operator<<( std::ostream& os, const Fraction& f )
 {
 	os << f.numerator << "/" << f.denominator;
 	return (os);
-}
-
-int	ft_gcd(int a, int b)
-{
-	if (b == 0)
-		return (a);
-	return (ft_gcd(b, a % b));
-}
-
-static int	round_to_int( double x )
-{
-	if (x >= 0.0)
-		return (static_cast<int>(x + 0.5));
-	return (static_cast<int>(x - 0.5));
 }
 
 bool	double_to_fraction( double value, Fraction& out )

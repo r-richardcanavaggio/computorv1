@@ -6,12 +6,13 @@
 /*   By: rrichard <rrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 16:39:17 by rrichard          #+#    #+#             */
-/*   Updated: 2025/12/11 17:36:49 by rrichard         ###   ########.fr       */
+/*   Updated: 2026/01/07 15:34:05 by rrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <iostream>
+#include "math.hpp"
 
 class Fraction
 {
