@@ -6,13 +6,13 @@
 /*   By: rrichard <rrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 16:36:40 by rrichard          #+#    #+#             */
-/*   Updated: 2026/01/07 12:42:39 by rrichard         ###   ########.fr       */
+/*   Updated: 2026/01/07 15:07:17 by rrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "computor.hpp"
 
-static void	print_real( double x )
+void	print_real( double x )
 {
 	Fraction f(0, 1);
 
@@ -22,6 +22,13 @@ static void	print_real( double x )
 		std::cout << f;
 	else
 		std::cout << x;
+}
+
+void	print_step_value( const char* label, double v )
+{
+	std::cout << label;
+	print_real(v);
+	std::cout << std::endl;
 }
 
 void	print_complex( double re, double im )
@@ -80,46 +87,66 @@ void	second_degree( PolyMap& poly )
 
 	for (auto& i : poly)
 	{
-		if (i.first == 0)
+		if (i.first == 0.0)
 			c = i.second;
-		else if (i.first == 1)
+		else if (i.first == 1.0)
 			b = i.second;
 		else
 			a = i.second;
 	}
-	det = b * b - 4.0 * a * c;
+
+	std::cout << "To resolve quadratic equations, we need the determinant ∆ = b^2 - 4ac\n";
+	print_step_value("a = ", a);
+	print_step_value("b = ", b);
+	print_step_value("c = ", c);
+
+	det = b * b - 4. * a * c;
+	std::cout << "∆ = " << b << "^2 - 4 * " << a << " * " << c <<"\n";
+	print_step_value("∆ = ", det);
+	
+	const double	denom = 2. * a;
+	print_step_value("2a = ", denom);
+
 	if (ft_abs(det) < 1e-12)
 	{
-		Fraction	f(0, 1);
-		double		res = -b / (2 * a);
+		std::cout << "For ∆ = 0, only one solution exists: -b / (2a)\n";
+		const double		res = -b / denom;
 		
 		std::cout << "The solution is:" << std::endl;
+		std::cout << -b << " / " << denom << " = ";
 		print_real(res);
 		std::cout << std::endl;
 	}
 	else if (det > 0.0)
 	{
-		double root1 = 0.0, root2 = 0.0;
+		std::cout << "For ∆ > 0, two real solutions exists: (-b ± √(∆))/(2a)\n";
+		const double	sqrt_det = ft_sqrt(det);
+		print_step_value("√(∆) = ", sqrt_det);
 
-		root1 = (-b - ft_sqrt(det)) / (2 * a);
-		root2 = (-b + ft_sqrt(det)) / (2 * a);
-		Fraction f1(0, 1);
-		Fraction f2(0, 1);
-		std::cout << "Discriminant is strictly positive, the two solutions are:" << std::endl;
+		const double	root1 = (-b - sqrt_det) / denom;
+		const double	root2 = (-b + sqrt_det) / denom;
+
+		std::cout << "The two real solutions are:" << std::endl;
+		std::cout << "(" << -b << " - " << sqrt_det << ") / " << denom << " = ";
 		print_real(root1);
 		std::cout << std::endl;
+		std::cout << "(" << -b << " + " << sqrt_det << ") / " << denom << " = ";
 		print_real(root2);
 		std::cout << std::endl;
 	}
 	else if (det < 0.0)
 	{
-		double	real_root = 0.0, imag_root = 0.0;
+		std::cout << "For ∆ < 0, two complex solutions exists: (-b ± i√(-∆))/(2a)\n";
+		const double	sqrt_neg_det = ft_sqrt(-det);
+		print_step_value("√(-∆) = ", sqrt_neg_det);
 
-		if (b != 0.0)
-			real_root = -b / (2 * a);
-		imag_root = ft_sqrt(-det) / (2 * a);
-		std::cout << "Discriminant is strictly negative, the two complex solutions are:" << std::endl;
-		print_complex(real_root, imag_root);
+		const double	real_root = -b / denom;
+		const double	imag_root = sqrt_neg_det / denom;
+
+		std::cout << "The two complex solutions are:" << std::endl;
+		std::cout << "(" << -b << " - " << sqrt_neg_det << "i) / " << denom << " = ";
 		print_complex(real_root, -imag_root);
+		std::cout << "(" << -b << " + " << sqrt_neg_det << "i) / " << denom << " = ";
+		print_complex(real_root, imag_root);
 	}
 }
