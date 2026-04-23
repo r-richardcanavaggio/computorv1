@@ -6,13 +6,16 @@
 /*   By: rrichard <rrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 15:04:41 by rrichard          #+#    #+#             */
-/*   Updated: 2026/01/07 11:16:58 by rrichard         ###   ########.fr       */
+/*   Updated: 2026/04/23 11:51:50 by rrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "computor.hpp"
 
-static std::string	normalize( const std::string& str )
+namespace
+{
+
+std::string	normalize( const std::string& str )
 {
 	std::string	res;
 	res.reserve(str.size());
@@ -53,7 +56,7 @@ static std::string	normalize( const std::string& str )
 	return (res);
 }
 
-static void			parse_term( const std::string& term, int side_sign, PolyMap& poly )
+void	parse_term( const std::string& term, int side_sign, PolyMap& poly )
 {
 	if (term.empty())
 		throw std::runtime_error("empty term");
@@ -106,7 +109,7 @@ static void			parse_term( const std::string& term, int side_sign, PolyMap& poly 
 	poly[power] += coef;
 }
 
-static void		parse_side( const std::string& side, int side_sign, PolyMap& poly )
+void	parse_side( const std::string& side, int side_sign, PolyMap& poly )
 {
 	std::string	s = side;
 	size_t		i = 0;
@@ -127,7 +130,7 @@ static void		parse_side( const std::string& side, int side_sign, PolyMap& poly )
 	}
 }
 
-static PolyMap	parse_formula( const std::string& formula )
+PolyMap	parse_formula( const std::string& formula )
 {
 	std::string	s = normalize(formula);
 	auto		pos_eq = s.find('=');
@@ -152,9 +155,12 @@ static PolyMap	parse_formula( const std::string& formula )
 	return (poly);
 }
 
+}
+
 int	main( int argc, char **argv )
 {
 	std::string	input;
+
 	if (argc == 1)
 		std::getline(std::cin, input);
 	else if (argc == 2)

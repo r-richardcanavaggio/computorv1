@@ -6,7 +6,7 @@
 /*   By: rrichard <rrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 16:59:27 by rrichard          #+#    #+#             */
-/*   Updated: 2026/01/07 15:33:19 by rrichard         ###   ########.fr       */
+/*   Updated: 2026/04/23 12:13:36 by rrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ Fraction::Fraction( int num, int den ) : numerator(num), denominator(den)
 
 void	Fraction::simplify()
 {
-	int	g = ft_gcd(std::abs(numerator), std::abs(denominator));
+	int	g = ft_gcd(ft_abs(numerator), ft_abs(denominator));
+
 	numerator /= g;
 	denominator /= g;
 	if (denominator < 0)
@@ -45,12 +46,12 @@ std::ostream&	operator<<( std::ostream& os, const Fraction& f )
 
 bool	double_to_fraction( double value, Fraction& out )
 {
-	const int		maxDen    = 100;
-	const double	maxError  = 1e-6;
-	bool			found     = false;
-	double			bestError = 0.0;
-	int				bestNum   = 0;
-	int				bestDen   = 1;
+	int		maxDen    = 100;
+	double	maxError  = 1e-6;
+	bool	found     = false;
+	double	bestError = 0.0;
+	int		bestNum   = 0;
+	int		bestDen   = 1;
 
 	for (int den = 1; den <= maxDen; den++)
 	{

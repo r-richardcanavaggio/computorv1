@@ -6,7 +6,7 @@
 /*   By: rrichard <rrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 15:31:20 by rrichard          #+#    #+#             */
-/*   Updated: 2026/01/07 15:33:35 by rrichard         ###   ########.fr       */
+/*   Updated: 2026/04/23 12:12:56 by rrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ int	round_to_int( double x )
 }
 
 double	ft_abs( double x )
+{
+	return (x > 0 ? x : -x);
+}
+
+int	ft_abs( int x )
 {
 	return (x > 0 ? x : -x);
 }

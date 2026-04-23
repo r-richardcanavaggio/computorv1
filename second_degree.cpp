@@ -6,7 +6,7 @@
 /*   By: rrichard <rrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 16:36:40 by rrichard          #+#    #+#             */
-/*   Updated: 2026/01/07 15:07:17 by rrichard         ###   ########.fr       */
+/*   Updated: 2026/04/23 12:15:51 by rrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,13 @@ void	second_degree( PolyMap& poly )
 	std::cout << "∆ = " << b << "^2 - 4 * " << a << " * " << c <<"\n";
 	print_step_value("∆ = ", det);
 	
-	const double	denom = 2. * a;
+	double	denom = 2. * a;
 	print_step_value("2a = ", denom);
 
 	if (ft_abs(det) < 1e-12)
 	{
 		std::cout << "For ∆ = 0, only one solution exists: -b / (2a)\n";
-		const double		res = -b / denom;
+		double		res = -b / denom;
 		
 		std::cout << "The solution is:" << std::endl;
 		std::cout << -b << " / " << denom << " = ";
@@ -120,11 +120,11 @@ void	second_degree( PolyMap& poly )
 	else if (det > 0.0)
 	{
 		std::cout << "For ∆ > 0, two real solutions exists: (-b ± √(∆))/(2a)\n";
-		const double	sqrt_det = ft_sqrt(det);
+		double	sqrt_det = ft_sqrt(det);
 		print_step_value("√(∆) = ", sqrt_det);
 
-		const double	root1 = (-b - sqrt_det) / denom;
-		const double	root2 = (-b + sqrt_det) / denom;
+		double	root1 = (-b - sqrt_det) / denom;
+		double	root2 = (-b + sqrt_det) / denom;
 
 		std::cout << "The two real solutions are:" << std::endl;
 		std::cout << "(" << -b << " - " << sqrt_det << ") / " << denom << " = ";
@@ -134,14 +134,14 @@ void	second_degree( PolyMap& poly )
 		print_real(root2);
 		std::cout << std::endl;
 	}
-	else if (det < 0.0)
+	else // det < 0.0
 	{
 		std::cout << "For ∆ < 0, two complex solutions exists: (-b ± i√(-∆))/(2a)\n";
-		const double	sqrt_neg_det = ft_sqrt(-det);
+		double	sqrt_neg_det = ft_sqrt(-det);
 		print_step_value("√(-∆) = ", sqrt_neg_det);
 
-		const double	real_root = -b / denom;
-		const double	imag_root = sqrt_neg_det / denom;
+		double	real_root = -b / denom;
+		double	imag_root = sqrt_neg_det / denom;
 
 		std::cout << "The two complex solutions are:" << std::endl;
 		std::cout << "(" << -b << " - " << sqrt_neg_det << "i) / " << denom << " = ";

@@ -6,13 +6,16 @@
 /*   By: rrichard <rrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 16:03:17 by rrichard          #+#    #+#             */
-/*   Updated: 2026/01/07 12:35:59 by rrichard         ###   ########.fr       */
+/*   Updated: 2026/04/23 11:19:05 by rrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "computor.hpp"
 
-static void	print_reduced_form( PolyMap& poly )
+namespace
+{
+
+void	print_reduced_form( PolyMap& poly )
 {
 	std::cout << "Reduced form: ";
 	int	i = 0;
@@ -26,6 +29,8 @@ static void	print_reduced_form( PolyMap& poly )
 		i++;
 	}
 	std::cout << " = 0" << std::endl;
+}
+	
 }
 
 void	start_calculations( PolyMap& poly )
